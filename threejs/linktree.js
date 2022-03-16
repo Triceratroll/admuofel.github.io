@@ -36,23 +36,7 @@ function init() {
 	renderer = new THREE.WebGLRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.setClearColor( new THREE.Color(0x000000) );
-	document.getElementById('container').appendChild(renderer.domElement);
-
-	// const bloomPass = new UnrealBloomPass(
-	// 	new THREE.Vector2(window.innerWidth, window.innerHeight),
-	// 	1.5,
-	// 	0.4,
-	// 	0.85
-	//   );
-	//   bloomPass.threshold = 0;
-	//   bloomPass.strength = 2; //intensity of glow
-	//   bloomPass.radius = 0;
-	//   const bloomComposer = new EffectComposer(renderer);
-	//   bloomComposer.setSize(window.innerWidth, window.innerHeight);
-	//   bloomComposer.renderToScreen = true;
-	//   bloomComposer.addPass(renderScene);
-	//   bloomComposer.addPass(bloomPass);
-
+	document.getElementById('container').appendChild(renderer.domElement); 
 
 	// Escena 
 	//scene = new THREE.Scene();
@@ -73,12 +57,12 @@ function init() {
 }
 
 function loadScene() {
+
 	// Construye el grafo de escena
 	// - Objetos (geometria, material)
 	// - Transformaciones 
 	// - Organizar el grafo
 
-	// Objeto contenedor de cubo
 	conjunto = new THREE.Object3D();
 	conjunto.position.y = 10;
 
@@ -154,7 +138,7 @@ function loadScene() {
 	orbita_4.position.x = 20;
 
 	// Esfera
-	var texPlaneta_5 = new THREE.TextureLoader().load(path+"planet_2.jpg");
+	var texPlaneta_5 = new THREE.TextureLoader().load(path + "planet_2.jpg");
 	var geoEsfera_5 = new THREE.SphereGeometry( 6, 50, 50 );
 	var material_5 = new THREE.MeshLambertMaterial( {color:'orange', wireframe: false, map:texPlaneta_5} );
 	esfera_5 = new THREE.Mesh( geoEsfera_5, material_5 );
@@ -177,57 +161,11 @@ function loadScene() {
 	suelo.position.y = -10; 
 
 	//sun object 
-	var texSun = new THREE.TextureLoader().load("sun.jpg");
+	var texSun = new THREE.TextureLoader().load(path + "sun.jpg");
 	var sun_geometry = new THREE.SphereGeometry( 8, 50, 50 );
 	var sun_material = new THREE.MeshBasicMaterial({ map:texSun, });
 	sun = new THREE.Mesh(sun_geometry, sun_material);
-	sun.position.set(0, 0, 0);
-	// sphere.layers.set(1);
-	
-
-	// Terreno 
-	// var ground_material = Physijs.createMaterial(
-	// 	new THREE.MeshLambertMaterial({
-	// 		map:THREE.ImageUtils.loadTexture('images/space.jpg')
-	// 	}),
-	// 	1000,
-	// 	0
-	// )
-
-	// var ground_geometry = new THREE.CubeGeometry(1200, 1200, 0, 0); 
-
-	// ground_geometry.computeFaceNormals();
-
-
-	// // Sitio de las imagenes
-	// var path = "images/";
-	// // Esfera
-	// var entorno = [ path+"posx.jpg", path+"negx.jpg",
-	//                 path+"posy.jpg", path+"negy.jpg",
-	//                 path+"posz.jpg", path+"negz.jpg",];
-	// var texEsfera = new THREE.CubeTextureLoader().load(entorno);
-	// // Habitacion
-	// var shader = THREE.ShaderLib.cube;
-    // shader.uniforms.tCube.value = texEsfera;
-
-	// var matParedes = new THREE.ShaderMaterial({
-	// 	vertexShader: shader.vertexShader,
-	// 	fragmentShader: shader.fragmentShader,
-	// 	uniforms: shader.uniforms,
-	// 	depthWrite: false,
-	// 	side: THREE.BackSide
-	// });
-
-	// var habitacion = new THREE.Mesh( new THREE.CubeGeometry(30,30,30),matParedes);
-	// scene.add(habitacion);
-
-	// var ground = new Physijs.PlaneMesh(
-	// 	ground_geometry,
-	// 	ground_material,
-	// 	1
-	// );
-
-	// ground.rotation.x = Math.PI / -2;
+	sun.position.set(0, 0, 0); 
 
 	// Objeto importado
 	var loader = new THREE.ObjectLoader();
@@ -238,44 +176,6 @@ function loadScene() {
 		         	//objeto.rotation.y = Math.PI/2;
 		         	cubo.add(objeto);
 		         });
-
-	// Texto
-	// var fontLoader = new THREE.FontLoader();
-	// fontLoader.load( 'fonts/helvetiker_bold.typeface.json',
-	// 	             function(font){
-	// 	             	var geoTexto = new THREE.TextGeometry( 
-	// 	             		'@twitter',
-	// 	             		{
-	// 	             			size: 0.5,
-	// 	             			height: 0.1,
-	// 	             			curveSegments: 2,
-	// 	             			style: "normal",
-	// 	             			font: font,
-	// 	             			bevelThickness: 0.05,
-	// 	             			bevelSize: 0.04,
-	// 	             			bevelEnabled: true
-	// 	             		});
-	// 	             	var matTexto = new THREE.MeshBasicMaterial( {color:'white'} );
-	// 	             	var texto = new THREE.Mesh( geoTexto, matTexto );
-		             	 
-	// 					texto.rotation.setFromVector3(new THREE.Vector3(0, 0, 0)); 
-	// 	             	texto.position.x = 1;
-	// 					// geoTexto.computeBoundingBox();
-	// 					// geoTexto.textWidth = geoTexto.boundingBox.max.x - geoTexto.geometry.boundingBox.min.x;
-		             
-							 
-	// 					var direction = new THREE.Vector3(0, 0, -1);
-	// 					var axis = new THREE.Vector3(0, 1, 0);
-	// 					var angle = Math.PI / 6;
-
-	// 					var modifier = new THREE.BendModifier();
-	// 					modifier.set(direction, axis, angle).modify( texto.geometry );
-
-	// 					geoTexto.computeBoundingBox();
-	// 					var textWidth = geoTexto.boundingBox.max.x - geoTexto.boundingBox.min.x;
-	// 					texto.position.set(-0.5 * textWidth, 500, 0);
-	// 					esfera.add( texto );
-	// 				});
 
 	var loader = new THREE.FontLoader();
 	loader.load( 'fonts/helvetiker_bold.typeface.json', function ( font ) {
@@ -611,8 +511,7 @@ function loadScene() {
 	} );
 	
 	
-	// Habitacion
-
+	// Entorno
 	var entorno = [ path+"galaxy.png", path+"galaxy.png",
 	                path+"galaxy.png", path+"galaxy.png",
 	                path+"galaxy.png", path+"galaxy.png",];
@@ -629,7 +528,7 @@ function loadScene() {
 		side: THREE.BackSide
 	});
 
-	var habitacion = new THREE.Mesh( new THREE.CubeGeometry(30,30,30),matParedes);
+	var habitacion = new THREE.Mesh( new THREE.CubeGeometry(30,30,30), matParedes);
 	scene.add(habitacion);
 
 	// Grafo 
@@ -643,39 +542,22 @@ function loadScene() {
 	conjunto.add( orbita_4);
 	conjunto.add( esfera_5 );
 	conjunto.add( orbita_5 );
+
 	conjunto_2.add( esfera_2 );
 	conjunto_2.add(orbita_2) ;
 
 	scene.add( conjunto );
-	scene.add( conjunto_2);
-	scene.add( espacio);
-	scene.add( new THREE.AxesHelper(3) );
+	scene.add( conjunto_2 );
+	scene.add( espacio ); 
 	scene.add( suelo );
 	scene.add( sun ); 
 }
 
-// function setupGUI() {
-
-//     // Objeto Controlador 
-//     effectControl = {
-//         mensaje: "Interfaz",
-//         posY: 1.0,
-//         separacion: [],
-//         caja: true,
-//         color: "rgb(255,255,0)"
-//     } 
-
-//     // Interfaz
-//     var gui = new dat.GUI();
-//     var folder = gui.addFolder("Interfaz del soldado");
-//     folder.add(effectControl,"mensaje").name("Aplicacion");
-//     folder.add(effectControl,"posY", 1.0, 3.0, 0.1).name("Sube/Baja");
-//     folder.add(effectControl,"separacion", {Ninguna:0, Media:1, Maxima:2}).name("Separacion"); 
-// }
-
 function detectCollisionCubes(object1, object2){
+
 	object1.geometry.computeBoundingBox(); //not needed if its already calculated
 	object2.geometry.computeBoundingBox();
+
 	object1.updateMatrixWorld();
 	object2.updateMatrixWorld();
 	
@@ -763,17 +645,17 @@ function aterrizar() {
 	
 }
 
+// Cambiar propiedades entre frames
 function update()
-{
-	// Cambiar propiedades entre frames
-
+{ 
     // Control del tiempo transcurrido 
     var ahora = Date.now(); 
 	angulo -= Math.PI/20 * (ahora-antes) / 100;
     antes = ahora; 
 	
 	conjunto.rotation.y = angulo/10; 
-	conjunto_2.rotation.y = angulo/10;
+	conjunto_2.rotation.y -= angulo/10;
+	
 	orbita.rotation.y = -angulo/10;
 	orbita.rotation.z = -angulo/5;
 	orbita_2.rotation.y = -angulo/10;
@@ -789,48 +671,20 @@ function update()
 	esfera_2.rotation.y = angulo/4;
 	esfera_3.rotation.y = -angulo/3;
 	esfera_4.rotation.y = angulo/5;
-	esfera_5.rotation.y = -angulo/8;
-	// orbita.rotation.x = angulo/2;
-	// orbita_2.rotation.x = angulo/2;
+	esfera_5.rotation.y = -angulo/8; 
+	//console.log(cubo.rotation.y);
 
     // Actualizar segun la interfaz
     conjunto.position.y = 0;
 	conjunto_2.position.y = 0; 
-	espacio.position.y = 0; 
-
-	//console.log(cubo.rotation.y);
+	espacio.position.y = 0;
 
 	camera.position.set(cubo.position.x, cubo.position.y +10, cubo.position.z-15);
-	camera.lookAt(cubo.position.x, cubo.position.y + 2.5, cubo.position.z);
-	// camera.translateZ( 1)
+	camera.lookAt(cubo.position.x, cubo.position.y + 2.5, cubo.position.z); 
 
 	move_XWing();
 	consola_de_vuelo();
 	aterrizar(); 
-
-	// document.addEventListener("keyup", function(event) {
-    //     console.log(`Key pressed: ${event.key}`); 
-    //     if(event.key == "Enter" && detectCollisionCubes(cubo, esfera)) { 
-	// 		window.open('https://twitter.com/adrianmf06', '_blank');
-    //     } else if (event.key == "Enter" && detectCollisionCubes(cubo, esfera_2)) { 
-	// 		window.open('https://www.linkedin.com/in/adrian-mu%C3%B1oz-felder/', '_blank');
-	// 	} else if (event.key == "Enter" && detectCollisionCubes(cubo, esfera_3)) {
-	// 		window.open('https://github.com/Triceratroll', '_blank'); 
-	// 	} else if (event.key == "Enter" && detectCollisionCubes(cubo, esfera_4)) {
-	// 		window.open('https://tippin.me/@adrianmf06', '_blank'); 
-	// 	} else if (event.key == "Enter" && detectCollisionCubes(cubo, esfera_5)) { 
-
-	// 	}
-	// });
-
-	document.addEventListener("visibilitychange", function() {
-		console.log( document.visibilityState );
-		window.dispatchEvent(new KeyboardEvent('keydown', {
-			
-			'key': 'w'
-		  }));
-	  })
-
 	//cameraControl.update(); 
 } 
 function render() {
@@ -840,4 +694,3 @@ function render() {
 	update();
 	renderer.render( scene, camera );
 }
-
