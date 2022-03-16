@@ -654,7 +654,7 @@ function update()
     antes = ahora; 
 	
 	conjunto.rotation.y = angulo/10; 
-	conjunto_2.rotation.y -= angulo/10;
+	conjunto_2.rotation.y = angulo/10;
 	
 	orbita.rotation.y = -angulo/10;
 	orbita.rotation.z = -angulo/5;
